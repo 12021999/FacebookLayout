@@ -20,7 +20,7 @@ public class FacebookActivity extends AppCompatActivity {
     String pass;
     String confirmPass;
     ImageButton ButtonLogin;
-    boolean confirmedAccess;
+    ImageButton buttonRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class FacebookActivity extends AppCompatActivity {
         fieldPass = (EditText) findViewById(R.id.editText2);
         fieldLogin = (EditText) findViewById(R.id.editText);
         ButtonLogin = (ImageButton) findViewById(R.id.imageButton);
+        buttonRegister = (ImageButton) findViewById(R.id.imageButton3);
     }
 
     public void LoginButtom(View v)
@@ -50,22 +51,27 @@ public class FacebookActivity extends AppCompatActivity {
         fieldConfirmPass = (EditText) findViewById(R.id.editText3);
         pass = fieldPass.getText().toString();
         confirmPass = fieldConfirmPass.getText().toString();
-        if(confirmPass.equals(pass))
+
+        ButtonLogin.setVisibility(View.GONE);
+        buttonRegister.setVisibility(View.VISIBLE);
+        fieldConfirmPass.setVisibility(View.VISIBLE);
+    }
+
+    public void ButtomRegister(View v)
+    {
+        if (confirmPass.equals(pass) && fieldConfirmPass.getText().toString() != "" && fieldPass.getText().toString() != "")
         {
-            confirmedAccess = true;
+            ButtonLogin.setVisibility(View.VISIBLE);
+            buttonRegister.setVisibility(View.GONE);
+            fieldConfirmPass.setVisibility(View.GONE);
         }
         else
         {
+            ButtonLogin.setVisibility(View.GONE);
+            buttonRegister.setVisibility(View.VISIBLE);
+            fieldConfirmPass.setVisibility(View.VISIBLE);
             Toast.makeText(v.getContext(), "As senhas não correspondem", Toast.LENGTH_SHORT).show();
         }
-        if(confirmedAccess)
-        {
-            Toast.makeText(v.getContext(), "" + confirmedAccess, Toast.LENGTH_SHORT).show();
-            ButtonLogin.setVisibility(View.VISIBLE);
-            fieldConfirmPass.setVisibility(View.GONE);
-        }
-        ButtonLogin.setVisibility(View.GONE);
-        fieldConfirmPass.setVisibility(View.VISIBLE);
     }
 
     @Override
